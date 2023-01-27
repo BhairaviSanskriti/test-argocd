@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio
+spec:
+  selector:
+    matchLabels:
+      webapp: portfolio
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        webapp: portfolio
+    spec:
+      containers: 
+      - name: my-prtfolio
+        image: bhairavisanskriti/sanskriti-portfolio:27
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "250m"
+          limits:
+            memory: "600Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portfolio
+  labels:
+    webapp: portfolio
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    webapp: portfolio
+  type: LoadBalancer
