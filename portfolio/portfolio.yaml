@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       webapp: portfolio
-  replicas: 2
+  replicas: 5
   template:
     metadata:
       labels:
